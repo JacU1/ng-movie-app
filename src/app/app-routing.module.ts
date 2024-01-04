@@ -6,17 +6,17 @@ import { MoviePageComponent } from './pages/movie-page/movie-page.component';
 
 const routes: Routes = [
   {
-    path: '**',
-    pathMatch: 'full',
-    component: PageNotFoundComponent
-  },
-  {
     path: '',
     component: HomePageComponent
   },
   {
-    path: 'movie:id',
+    path: 'movie/:id',
     component: MoviePageComponent
+  },
+  {
+    path: '**',
+    pathMatch: 'full',
+    component: PageNotFoundComponent
   }
 ];
 

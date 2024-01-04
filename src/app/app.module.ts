@@ -1,8 +1,14 @@
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
+import { MoviesDataService } from './shared/services/movies-data.service';
+import { CommonModule } from '@angular/common';
+import { ToastComponent } from './shared/components/toast/toast.component';
 
 @NgModule({
   declarations: [
@@ -10,9 +16,14 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    CommonModule,
+    AppRoutingModule,
+    NavbarComponent,
+    FooterComponent,
+    ToastComponent,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [MoviesDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
