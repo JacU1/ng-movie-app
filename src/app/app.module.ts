@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
-import { MoviesDataService } from './shared/services/movies-data.service';
 import { CommonModule } from '@angular/common';
 import { ToastComponent } from './shared/components/toast/toast.component';
 
@@ -23,7 +22,7 @@ import { ToastComponent } from './shared/components/toast/toast.component';
     ToastComponent,
     HttpClientModule
   ],
-  providers: [MoviesDataService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
