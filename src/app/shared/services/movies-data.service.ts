@@ -27,10 +27,21 @@ export class MoviesDataService {
     }));
   }
 
+  public getMovieById(id: string): Observable<MovieApiResponse> {
+    const url = `${environment.apiUrl}${environment.apiKey}&i=${id}&plot=full`;
+    return this._http.get<MovieApiResponse>(url).pipe(tap(res => res.Response === "False" ? this._toastService.showToast(ToastTypes.DANGER, "Błąd podczas wczytywania danych.") : null),catchError(err => {
+      this._toastService.showToast(ToastTypes.DANGER, "Błąd podczas wczytywania danych.");
+      return EMPTY;
+    }));
+  }
+
   public getMovieByTitleSearch(title: string, pageNumber: number = 1): Observable<MovieApiSearch> {
     const url = `${environment.apiUrl}${environment.apiKey}&s=${title}&page=${pageNumber}`;
     this.searchedMovieTitle = title;
-    return this._http.get<MovieApiSearch>(url).pipe(tap(res => res.Response === "False" ? this._toastService.showToast(ToastTypes.DANGER, "Błąd podczas wczytywania danych.") : null),catchError(err => {
+    return this._http.get<MovieApiSearch>(url).pipe(tap(res => {
+      res.Response === "False" && res.Error !== "Movie not found!" ? this._toastService.showToast(ToastTypes.DANGER, "Błąd podczas wczytywania danych.") : null;
+      res.Response === "False" && res.Error === "Movie not found!" ? this._toastService.showToast(ToastTypes.DANGER, "Nie znaleziono filmu") : null
+    }),catchError(err => {
       this._toastService.showToast(ToastTypes.DANGER, "Błąd podczas wczytywania danych.");
       return EMPTY;
     }));
