@@ -1,19 +1,48 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { MovieApiSearch } from 'src/app/shared/models/movies-api.model';
 
+export interface PagingConfig {
+  currentPage: number;
+  itemsPerPage: number;
+  totalItems: number;
+}
 @Component({
   selector: 'app-movie-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgxPaginationModule],
   templateUrl: './movie-list.component.html',
   styleUrl: './movie-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MovieListComponent implements OnInit {
-  @Input() movieListData!: MovieApiSearch | null;
+  @Input() set movieListData$(value: MovieApiSearch | null) {
+    this.movieListData = value!;
+  };
+
+  @Output() onPaginationChange = new EventEmitter<number>();
+
+  movieListData!: MovieApiSearch;
+
+  currentPage: number  = 1;
+  itemsPerPage: number = 10;
+  totalItems: number = 0;
+  pagingConfig: PagingConfig = {} as PagingConfig;
+
+  constructor() {}
 
   ngOnInit(): void {
-    console.log(this.movieListData);
+    this.pagingConfig = {
+      itemsPerPage: this.itemsPerPage,
+      currentPage: this.currentPage,
+      totalItems: parseInt(this.movieListData.totalResults)
+    }
+  }
+
+  onTableDataChange(event:any) {
+    this.pagingConfig.currentPage = event;
+    this.onPaginationChange.emit(this.pagingConfig.currentPage);
+    window.scrollTo(0,0);
   }
 }

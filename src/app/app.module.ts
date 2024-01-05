@@ -8,7 +8,6 @@ import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { ToastComponent } from './shared/components/toast/toast.component';
-
 @NgModule({
   declarations: [
     AppComponent
