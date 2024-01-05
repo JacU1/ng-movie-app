@@ -4,6 +4,9 @@ import { MovieListComponent } from './dumb-components/movie-list/movie-list.comp
 import { Observable, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MovieApiSearch } from 'src/app/shared/models/movies-api.model';
+import { Select } from '@ngxs/store';
+import { MoviesSelector } from 'src/app/shared/state/selectors/movies.selectors';
+import { MovieStateItem } from 'src/app/shared/state';
 
 @Component({
   selector: 'app-home-page',
@@ -13,6 +16,8 @@ import { MovieApiSearch } from 'src/app/shared/models/movies-api.model';
   styleUrl: './home-page.component.scss'
 })
 export class HomePageComponent implements OnInit, OnDestroy {
+  @Select(MoviesSelector.items)
+  items$!: Observable<MovieStateItem[]>;
 
   public movieListSubject$!: Observable<MovieApiSearch | null>;
   private sub: Subscription = new Subscription();
@@ -21,6 +26,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.movieListSubject$ = this._movieService.movieDataList$.asObservable();
+    this.items$.subscribe(res => console.log(res));
   }
 
   ngOnDestroy(): void {
