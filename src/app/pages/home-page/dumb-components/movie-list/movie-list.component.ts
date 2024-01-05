@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MovieApiSearch } from 'src/app/shared/models/movies-api.model';
 
@@ -11,7 +12,7 @@ export interface PagingConfig {
 @Component({
   selector: 'app-movie-list',
   standalone: true,
-  imports: [CommonModule, NgxPaginationModule],
+  imports: [CommonModule, NgxPaginationModule, RouterModule],
   templateUrl: './movie-list.component.html',
   styleUrl: './movie-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -24,7 +25,6 @@ export class MovieListComponent implements OnInit {
   @Output() onPaginationChange = new EventEmitter<number>();
 
   movieListData!: MovieApiSearch;
-
   currentPage: number  = 1;
   itemsPerPage: number = 10;
   totalItems: number = 0;

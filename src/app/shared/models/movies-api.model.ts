@@ -36,5 +36,6 @@ export interface MovieApiSearch {
             }
         ],
         totalResults: string,
-        Response: string
+        Response: string,
+        Error?: string
 }
