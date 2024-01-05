@@ -7,12 +7,13 @@ import {
 } from "tw-elements";
 import { MoviesDataService } from '../../services/movies-data.service';
 import { Subscription } from 'rxjs';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, RouterModule],
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent implements OnInit, OnDestroy {

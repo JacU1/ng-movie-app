@@ -1,8 +1,8 @@
 <ng-container *ngIf="movieData$ | async as movieData">
   <div class="sm:container px-4 sm:mx-auto lg:px-36">
     <div class="flex flex-col justify-center items-center">
-      <img *ngIf="movieData.Poster !== 'N/A'" class="w-full h-full sm:w-[300px] sm:h-[450px]" [src]="movieData.Poster" />
-      <img *ngIf="movieData.Poster === 'N/A'" class="w-full h-full sm:w-[300px] sm:h-[450px]" src="assets/movie-clap-transparent.png"/>
+      <img *ngIf="movieData.Poster !== 'N/A'" class="w-full h-full sm:w-[300px] sm:h-[450px] object-contain" [src]="movieData.Poster" />
+      <img *ngIf="movieData.Poster === 'N/A'" class="w-full h-full sm:w-[300px] sm:h-[450px] object-contain" src="assets/movie-clap-transparent.png"/>
       <div class="title-content mt-6">
         <h3 class="mb-8 text-3xl font-bold text-center">
           {{ movieData.Title }}
