@@ -39,8 +39,7 @@ import { ViewedMoviesBoxComponent } from './shared/components/viewed-movies-box/
             injectContainerState: false
           }
         }
-      ),
-      NgxsReduxDevtoolsPluginModule.forRoot()
+      )
     )
   ],
   bootstrap: [AppComponent]
