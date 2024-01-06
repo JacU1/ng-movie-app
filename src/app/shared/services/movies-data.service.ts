@@ -21,28 +21,28 @@ export class MoviesDataService {
 
   public getMovieByTitle(title: string): Observable<MovieApiResponse> {
     const url = `${environment.apiUrl}${environment.apiKey}&t=${title}`;
-    return this._http.get<MovieApiResponse>(url).pipe(tap(res => res.Response === "False" ? this._toastService.showToast(ToastTypes.DANGER, "Błąd podczas wczytywania danych.") : null),catchError(err => {
-      this._toastService.showToast(ToastTypes.DANGER, "Błąd podczas wczytywania danych.");
+    return this._http.get<MovieApiResponse>(url).pipe(tap(res => res.Response === "False" ? this._toastService.showToast(ToastTypes.DANGER, "Error during featching data") : null),catchError(err => {
+      this._toastService.showToast(ToastTypes.DANGER, "Error during featching data");
       return EMPTY;
     }));
   }
 
   public getMovieById(id: string): Observable<MovieApiResponse> {
     const url = `${environment.apiUrl}${environment.apiKey}&i=${id}&plot=full`;
-    return this._http.get<MovieApiResponse>(url).pipe(tap(res => res.Response === "False" ? this._toastService.showToast(ToastTypes.DANGER, "Błąd podczas wczytywania danych.") : null),catchError(err => {
+    return this._http.get<MovieApiResponse>(url).pipe(tap(res => res.Response === "False" ? this._toastService.showToast(ToastTypes.DANGER, "Error during featching data") : null),catchError(err => {
       this._toastService.showToast(ToastTypes.DANGER, "Błąd podczas wczytywania danych.");
       return EMPTY;
     }));
   }
 
-  public getMovieByTitleSearch(title: string, pageNumber: number = 1): Observable<MovieApiSearch> {
-    const url = `${environment.apiUrl}${environment.apiKey}&s=${title}&page=${pageNumber}`;
+  public getMovieBySearch(title: string, pageNumber: number = 1, type: string = '', year: string = ''): Observable<MovieApiSearch> {
+    const url = `${environment.apiUrl}${environment.apiKey}&s=${title}&type=${type}&y=${year}&page=${pageNumber}`;
     this.searchedMovieTitle = title;
     return this._http.get<MovieApiSearch>(url).pipe(tap(res => {
-      res.Response === "False" && res.Error !== "Movie not found!" ? this._toastService.showToast(ToastTypes.DANGER, "Błąd podczas wczytywania danych.") : null;
-      res.Response === "False" && res.Error === "Movie not found!" ? this._toastService.showToast(ToastTypes.DANGER, "Nie znaleziono filmu") : null
+      res.Response === "False" && res.Error !== "Movie not found!" ? this._toastService.showToast(ToastTypes.DANGER, "Error during featching data") : null;
+      res.Response === "False" && res.Error === "Movie not found!" ? this._toastService.showToast(ToastTypes.DANGER, "Movie not found!") : null
     }),catchError(err => {
-      this._toastService.showToast(ToastTypes.DANGER, "Błąd podczas wczytywania danych.");
+      this._toastService.showToast(ToastTypes.DANGER, "Error during featching data");
       return EMPTY;
     }));
   }
