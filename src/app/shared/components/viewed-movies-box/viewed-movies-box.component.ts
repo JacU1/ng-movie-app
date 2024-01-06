@@ -17,8 +17,13 @@ export class ViewedMoviesBoxComponent implements OnInit {
   items$!: Observable<MovieStateItem[]>;
 
   public boxContent$!: Observable<MovieStateItem[]>;
+  public showBox: boolean = true;
 
   ngOnInit(): void {
     this.boxContent$ = this.items$;
+  }
+
+  manageBox(): void {
+    this.showBox = !this.showBox;
   }
 }

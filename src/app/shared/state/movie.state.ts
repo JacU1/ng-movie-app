@@ -25,7 +25,6 @@ export class MoviesState {
     @Action(AddMovie)
     addMovie(ctx: StateContext<MovieStateModel>, action: AddMovie) {
             const state = ctx.getState();
-            console.log(state);
             const newItem: MovieStateItem = {
                 id: action.id,
                 title: action.title,
@@ -36,6 +35,5 @@ export class MoviesState {
             ...state,
             items: [...state.items, newItem],
         });
-        console.log(state);
     }
 }

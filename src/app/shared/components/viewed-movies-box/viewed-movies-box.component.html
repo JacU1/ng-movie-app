@@ -1,8 +1,62 @@
-<ng-container *ngIf="(boxContent$ | async) as boxContent">
-    <div class="fixed bottom-[25px] right-[35px] bg-white w-[300px] h-[300px]">
-        <div *ngFor="let item of boxContent" class="flex flex-col">
-            <h3>{{ item.title }}</h3>
-            <span>{{ item.id }}</span>
-        </div>
+<ng-container *ngIf="(boxContent$ | async)!.length !== 0 && showBox === true">
+  <div
+    class="fixed bottom-[25px] right-[0px] bg-[#030a1b] h-[150px] rounded-lg overflow-auto w-full lg:w-[300px] lg:right-[25px]"
+  >
+    <button
+      type="button"
+      class="p-2 box-content rounded-none border-none opacity-80 relative top-[5%] left-[85%] cursor-pointer hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none"
+      (click)="manageBox()"
+      aria-label="Close"
+    >
+      <span
+        class="w-[1em] focus:opacity-100 disabled:pointer-events-none disabled:select-none disabled:opacity-25 [&.disabled]:pointer-events-none [&.disabled]:select-none [&.disabled]:opacity-25"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="h-6 w-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </span>
+    </button>
+    <div
+      *ngFor="let item of (boxContent$ | async)! as boxContent"
+      class="flex flex-col px-6 py-4 relative top-[-25%] w-3/4"
+    >
+      <h3>Title: {{ item.title }}</h3>
+      <span>Id: {{ item.id }}</span>
     </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="(boxContent$ | async)!.length !== 0 && showBox === false">
+  <div
+    class="fixed cursor-pointer flex justify-center items-center bottom-[25px] right-[5px] bg-[#030a1b] h-[80px] rounded-full overflow-y-auto overflow-x-hidden w-[80px] lg:right-[25px]"
+    (click)="manageBox()"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      width="30px"
+      height="50px"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="w-6 h-6"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+      />
+    </svg>
+  </div>
 </ng-container>

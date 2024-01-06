@@ -26,7 +26,6 @@ export class HomePageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.movieListSubject$ = this._movieService.movieDataList$.asObservable();
-    this.items$.subscribe(res => console.log(res));
   }
 
   ngOnDestroy(): void {
@@ -34,7 +33,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
   }
 
   onPageChage(page: any): void {
-    this.sub.add(this._movieService.getMovieByTitleSearch(this._movieService.searchedMovieTitle, page).subscribe(res => {
+    this.sub.add(this._movieService.getMovieBySearch(this._movieService.searchedMovieTitle, page).subscribe(res => {
       this._movieService.movieDataList$.next(res);
     }));
   }
