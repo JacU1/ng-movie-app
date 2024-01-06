@@ -26,7 +26,6 @@ export class HomePageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.movieListSubject$ = this._movieService.movieDataList$.asObservable();
-    this.items$.subscribe(res => console.log(res));
   }
 
   ngOnDestroy(): void {
