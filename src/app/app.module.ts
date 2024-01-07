@@ -1,5 +1,5 @@
-import { MovieStateModel, MoviesState } from './shared/state/movie.state';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { MoviesState } from './shared/state/movie.state';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule, importProvidersFrom } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -39,7 +39,8 @@ import { ViewedMoviesBoxComponent } from './shared/components/viewed-movies-box/
             injectContainerState: false
           }
         }
-      )
+      ),
+      NgxsReduxDevtoolsPluginModule.forRoot()
     )
   ],
   bootstrap: [AppComponent]
