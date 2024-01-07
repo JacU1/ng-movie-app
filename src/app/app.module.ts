@@ -1,5 +1,5 @@
 import { MoviesState } from './shared/state/movie.state';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule, importProvidersFrom } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -13,6 +13,8 @@ import { NgxsModule } from '@ngxs/store';
 import { environment } from 'src/environments/environment';
 import { NgxsReduxDevtoolsPluginModule } from "@ngxs/devtools-plugin";
 import { ViewedMoviesBoxComponent } from './shared/components/viewed-movies-box/viewed-movies-box.component';
+import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
+import { LoadingSpinnerInterceptor } from './shared/interceptors/loading-spinner.interceptor';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { ViewedMoviesBoxComponent } from './shared/components/viewed-movies-box/
     AppRoutingModule,
     NavbarComponent,
     FooterComponent,
+    LoadingSpinnerComponent,
     ViewedMoviesBoxComponent,
     ToastComponent,
     HttpClientModule,
@@ -41,7 +44,12 @@ import { ViewedMoviesBoxComponent } from './shared/components/viewed-movies-box/
         }
       ),
       NgxsReduxDevtoolsPluginModule.forRoot()
-    )
+    ),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingSpinnerInterceptor,
+      multi: true,
+   },
   ],
   bootstrap: [AppComponent]
 })

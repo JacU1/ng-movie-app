@@ -2,9 +2,11 @@
   <div
     class="fixed bottom-[25px] right-[0px] bg-[#030a1b] h-[150px] rounded-lg overflow-auto w-full lg:w-[300px] lg:right-[25px]"
   >
+  <div class="flex justify-between">
+    <span class="p-4">Last viewed</span>
     <button
       type="button"
-      class="p-2 box-content rounded-none border-none opacity-80 relative top-[5%] left-[85%] cursor-pointer hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none"
+      class="p-2 box-content rounded-none border-none opacity-80 cursor-pointer hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none"
       (click)="manageBox()"
       aria-label="Close"
     >
@@ -27,9 +29,10 @@
         </svg>
       </span>
     </button>
+  </div>
     <div
       *ngFor="let item of (boxContent$ | async)! as boxContent"
-      class="flex flex-col px-6 py-4 relative top-[-25%] w-3/4"
+      class="flex flex-col px-6 py-4"
     >
       <h3>Title: {{ item.title }}</h3>
       <span>Id: {{ item.id }}</span>
