@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ToastService } from '../../services/toast.service';
 import { ToastTypes } from '../../models/toast.model';
+import { MovieApiSearch } from '../../models/movies-api.model';
 
 @Component({
   selector: 'app-navbar',
@@ -65,7 +66,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.searchFormGroup.get('year')!.reset();
         break;
       }
-    this._moviesService.movieDataList$.next(null);
+    this._moviesService.movieDataList$.next({} as MovieApiSearch);
   }
 
 }

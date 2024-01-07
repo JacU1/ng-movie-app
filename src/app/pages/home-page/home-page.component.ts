@@ -19,7 +19,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
   @Select(MoviesSelector.items)
   items$!: Observable<MovieStateItem[]>;
 
-  public movieListSubject$!: Observable<MovieApiSearch | null>;
+  public movieListSubject$!: Observable<MovieApiSearch>;
   private sub: Subscription = new Subscription();
   
   constructor(private readonly _movieService: MoviesDataService){}
