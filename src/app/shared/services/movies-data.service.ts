@@ -11,12 +11,12 @@ import { ToastTypes } from '../models/toast.model';
 })
 export class MoviesDataService {
 
-  public movieDataList$!: BehaviorSubject<MovieApiSearch>;
+  public movieDataList$!: BehaviorSubject<MovieApiSearch | null>;
   public searchedMovieTitle!: string;
 
   constructor(private readonly _http: HttpClient,
     private readonly _toastService: ToastService) {
-      this.movieDataList$ = new BehaviorSubject<MovieApiSearch>({} as MovieApiSearch);
+      this.movieDataList$ = new BehaviorSubject<MovieApiSearch | null>(null);
     }
 
   public getMovieByTitle(title: string): Observable<MovieApiResponse> {

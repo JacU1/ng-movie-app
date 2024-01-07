@@ -1,5 +1,5 @@
 <div class="sm:container sm:mx-auto px-5">
-    <div *ngIf="(movieListSubject$ | async)!; else placeholder" class="flex justify-center">
+    <div *ngIf="(movieListSubject$ | async) !== null; else placeholder" class="flex justify-center">
         <app-movie-list class="w-full" 
         [movieListData$]="(movieListSubject$ | async)" 
         (onPaginationChange)="onPageChage($event)"></app-movie-list>

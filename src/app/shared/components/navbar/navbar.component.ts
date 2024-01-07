@@ -47,7 +47,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   getMovieBySearch(): void {
     if(this.searchFormGroup.valid) {
       this.sub.add(this._moviesService.getMovieBySearch(this.searchFormGroup.get('searchInput')!.value, 1, this.searchFormGroup.get('type')!.value, this.searchFormGroup.get('year')!.value).subscribe(res => {
-        this._moviesService.movieDataList$.next(res);
+        res.Response === 'False' ? this._moviesService.movieDataList$.next(null) : this._moviesService.movieDataList$.next(res); 
       }));
     }else {
       this._toastService.showToast(ToastTypes.DANGER, "Wrong input");
@@ -66,7 +66,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.searchFormGroup.get('year')!.reset();
         break;
       }
-    this._moviesService.movieDataList$.next({} as MovieApiSearch);
+    this._moviesService.movieDataList$.next(null);
   }
 
 }

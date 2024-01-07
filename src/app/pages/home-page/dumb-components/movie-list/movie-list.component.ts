@@ -16,11 +16,10 @@ export interface PagingConfig {
   templateUrl: './movie-list.component.html',
   styleUrl: './movie-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
 })
 export class MovieListComponent {
-  @Input() set movieListData$(value: MovieApiSearch) {
-    this.movieListData = value;
+  @Input() set movieListData$(value: MovieApiSearch | null) {
+    this.movieListData = value!;
 
     this.pagingConfig = {
       itemsPerPage: this.itemsPerPage,
