@@ -17,28 +17,27 @@ export interface PagingConfig {
   styleUrl: './movie-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MovieListComponent implements OnInit {
+export class MovieListComponent {
+  movieListData: MovieApiSearch = {} as MovieApiSearch;
+
   @Input() set movieListData$(value: MovieApiSearch | null) {
     this.movieListData = value!;
+
+    this.pagingConfig = {
+      itemsPerPage: this.itemsPerPage,
+      currentPage: this.currentPage,
+      totalItems: parseInt(this.movieListData.totalResults)
+    }
   };
 
   @Output() onPaginationChange = new EventEmitter<number>();
 
-  movieListData!: MovieApiSearch;
   currentPage: number  = 1;
   itemsPerPage: number = 10;
   totalItems: number = 0;
   pagingConfig: PagingConfig = {} as PagingConfig;
 
   constructor() {}
-
-  ngOnInit(): void {
-    this.pagingConfig = {
-      itemsPerPage: this.itemsPerPage,
-      currentPage: this.currentPage,
-      totalItems: parseInt(this.movieListData.totalResults)
-    }
-  }
 
   onTableDataChange(event:any) {
     this.pagingConfig.currentPage = event;
