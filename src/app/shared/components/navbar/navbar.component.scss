@@ -1,6 +1,12 @@
-::ng-deep {
-    .peer{
-        padding: 0.7rem !important;
-        color: white;
-    }
-} 
+::ng-deep.ng-select.custom {
+    width: 240px;
+    background-color: transparent;
+}
+
+::ng-deep.ng-select .ng-select-container {
+    background-color: transparent;
+}
+
+::ng-deep .ng-select .ng-value {
+    color: white;
+}
