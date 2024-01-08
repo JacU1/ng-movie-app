@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, EMPTY, Observable, Subject, catchError, filter, tap } from 'rxjs';
 import { MovieApiResponse, MovieApiSearch } from '../models/movies-api.model';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { ToastService } from './toast.service';
 import { ToastTypes } from '../models/toast.model';
 
