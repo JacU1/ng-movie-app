@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MovieApiSearch } from 'src/app/shared/models/movies-api.model';
@@ -17,15 +17,9 @@ export interface PagingConfig {
   styleUrl: './movie-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MovieListComponent {
+export class MovieListComponent implements OnInit {
   @Input() set movieListData$(value: MovieApiSearch | null) {
     this.movieListData = value!;
-
-    this.pagingConfig = {
-      itemsPerPage: this.itemsPerPage,
-      currentPage: this.currentPage,
-      totalItems: parseInt(this.movieListData.totalResults)
-    };
   };
 
   @Output() onPaginationChange = new EventEmitter<number>();
@@ -38,7 +32,15 @@ export class MovieListComponent {
 
   constructor() {}
 
-  onTableDataChange(event:any) {
+  ngOnInit(): void {
+    this.pagingConfig = {
+      itemsPerPage: this.itemsPerPage,
+      currentPage: this.currentPage,
+      totalItems: parseInt(this.movieListData.totalResults)
+    };
+  }
+
+  naPageChange(event:any) {
     this.pagingConfig.currentPage = event;
     this.onPaginationChange.emit(this.pagingConfig.currentPage);
     window.scrollTo(0,0);
