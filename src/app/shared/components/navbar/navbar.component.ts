@@ -61,10 +61,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
             Type: '',
             Poster: ''
           };
-          res.Search[0] = firstValue;
           res.Search.forEach(item => {
             this.searchedResults.push(item);
-          })
+          });
+          this.searchedResults[0] = firstValue;
           return res;
         } 
         return res;
