@@ -1,28 +1,27 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HomePageComponent } from './home-page.component';
-import { HttpClientModule } from '@angular/common/http';
+import { MovieListItemComponent } from './movie-list-item.component';
 import { ActivatedRoute } from '@angular/router';
 
-describe('HomePageComponent', () => {
-  let component: HomePageComponent;
-  let fixture: ComponentFixture<HomePageComponent>;
+describe('MovieListItemComponent', () => {
+  let component: MovieListItemComponent;
+  let fixture: ComponentFixture<MovieListItemComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HomePageComponent, HttpClientModule],
+      imports: [MovieListItemComponent],
       providers: [
         { provide: ActivatedRoute, useValue: {} },
       ],
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(HomePageComponent);
+    fixture = TestBed.createComponent(MovieListItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  xit('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

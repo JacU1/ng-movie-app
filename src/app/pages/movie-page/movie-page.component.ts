@@ -1,18 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Select, Store } from '@ngxs/store';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Store } from '@ngxs/store';
 import { Observable, Subscription, switchMap } from 'rxjs';
 import { MovieApiResponse } from 'src/app/shared/models/movies-api.model';
 import { MoviesDataService } from 'src/app/shared/services/movies-data.service';
-import { MovieStateItem } from 'src/app/shared/state';
 import { AddMovie } from 'src/app/shared/state/actions/movies.actions';
-import { MoviesSelector } from 'src/app/shared/state/selectors/movies.selectors';
+import {
+  initTE,
+  Select
+} from "tw-elements";
 
 @Component({
   selector: 'app-movie-page',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './movie-page.component.html',
   styleUrl: './movie-page.component.scss'
 })
@@ -24,9 +26,16 @@ export class MoviePageComponent implements OnInit, OnDestroy {
 
   constructor(private readonly _moviesService: MoviesDataService, 
     private readonly _activedRoute: ActivatedRoute,
+    private readonly _router: Router,
     private readonly _store: Store) {}
 
+    get getCurrentPage() : string {
+      return localStorage.getItem('currentPage')!.toString()
+    }
+
   ngOnInit(): void {
+    initTE({ Select });
+
     this.movieData$ = this._activedRoute.params.pipe(switchMap(res => {
       return this._moviesService.getMovieById(res['id']);
     }));
@@ -38,5 +47,9 @@ export class MoviePageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._sub.unsubscribe();
+  }
+
+  returnToList(): void {
+    this._router.navigate(['/movies/page/' + this.getCurrentPage]);
   }
 }

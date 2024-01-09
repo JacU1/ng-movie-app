@@ -1,8 +1,30 @@
 <ng-container *ngIf="movieData$ | async as movieData">
   <div class="sm:container px-4 sm:mx-auto lg:px-36">
+    <button
+      class="relative z-[2] flex items-center rounded-md bg-primary p-4 mt-4 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
+      type="button"
+      data-te-ripple-init
+      data-te-ripple-color="light"
+      (click)="returnToList()"
+      routerLinkActive="router-link-active"
+    >
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
+    </svg>
+    
+      <span>Go Back to List</span>
+    </button>
     <div class="flex flex-col justify-center items-center">
-      <img *ngIf="movieData.Poster !== 'N/A'" class="w-full h-full sm:w-[300px] sm:h-[450px] object-contain" [src]="movieData.Poster" />
-      <img *ngIf="movieData.Poster === 'N/A'" class="w-full h-full sm:w-[300px] sm:h-[450px] object-contain" src="assets/movie-clap-transparent.png"/>
+      <img
+        *ngIf="movieData.Poster !== 'N/A'"
+        class="w-full h-full sm:w-[300px] sm:h-[450px] object-contain"
+        [src]="movieData.Poster"
+      />
+      <img
+        *ngIf="movieData.Poster === 'N/A'"
+        class="w-full h-full sm:w-[300px] sm:h-[450px] object-contain"
+        src="assets/movie-clap-transparent.png"
+      />
       <div class="title-content mt-6">
         <h3 class="mb-8 text-3xl font-bold text-center">
           {{ movieData.Title }}
@@ -26,29 +48,29 @@
               Movie genre
             </h3>
           </div>
-          <div
-            class="group flex justify-center items-center relative"
-          >
-            <div class="flex flex-col w-full justify-center items-center text-center">
+          <div class="group flex justify-center items-center relative">
+            <div
+              class="flex flex-col w-full justify-center items-center text-center"
+            >
               <span>{{ movieData.Genre }}</span>
             </div>
           </div>
         </div>
 
         <div class="flex flex-col md:grid md:grid-cols-2 md:gap-3">
-            <div class="flex flex-col w-full justify-center items-center">
-              <h3 class="mb-4 text-2xl font-bold text-center mt-4 md:mb-8">
-                Actors
-              </h3>
-            </div>
+          <div class="flex flex-col w-full justify-center items-center">
+            <h3 class="mb-4 text-2xl font-bold text-center mt-4 md:mb-8">
+              Actors
+            </h3>
+          </div>
+          <div class="group flex justify-center items-center relative">
             <div
-              class="group flex justify-center items-center relative"
+              class="flex flex-col w-full justify-center items-center text-center"
             >
-              <div class="flex flex-col w-full justify-center items-center text-center">
-                <span>{{ movieData.Actors }}</span>
-              </div>
+              <span>{{ movieData.Actors }}</span>
             </div>
           </div>
+        </div>
 
         <div class="flex flex-col md:grid md:grid-cols-2 md:gap-3">
           <div class="flex flex-col w-full justify-center items-center">
@@ -56,181 +78,179 @@
               Box Office
             </h3>
           </div>
-          <div
-            class="group flex justify-center items-center relative"
-          >
-            <div class="flex flex-col w-full justify-center items-center text-center">
+          <div class="group flex justify-center items-center relative">
+            <div
+              class="flex flex-col w-full justify-center items-center text-center"
+            >
               <span>{{ movieData.BoxOffice }}</span>
             </div>
           </div>
         </div>
 
         <div class="flex flex-col md:grid md:grid-cols-2 md:gap-3">
-            <div class="flex flex-col w-full justify-center items-center">
-              <h3 class="mb-4 text-2xl font-bold text-center mt-4 md:mb-8">
-                Awards
-              </h3>
-            </div>
+          <div class="flex flex-col w-full justify-center items-center">
+            <h3 class="mb-4 text-2xl font-bold text-center mt-4 md:mb-8">
+              Awards
+            </h3>
+          </div>
+          <div class="group flex justify-center items-center relative">
             <div
-              class="group flex justify-center items-center relative"
+              class="flex flex-col w-full justify-center items-center text-center"
             >
-              <div class="flex flex-col w-full justify-center items-center text-center">
-                <span>{{ movieData.Awards }}</span>
-              </div>
+              <span>{{ movieData.Awards }}</span>
             </div>
           </div>
+        </div>
 
-          <div class="flex flex-col md:grid md:grid-cols-2 md:gap-3">
-            <div class="flex flex-col w-full justify-center items-center">
-              <h3 class="mb-4 text-2xl font-bold text-center mt-4 md:mb-8">
-                Production
-              </h3>
-            </div>
+        <div class="flex flex-col md:grid md:grid-cols-2 md:gap-3">
+          <div class="flex flex-col w-full justify-center items-center">
+            <h3 class="mb-4 text-2xl font-bold text-center mt-4 md:mb-8">
+              Production
+            </h3>
+          </div>
+          <div class="group flex justify-center items-center relative">
             <div
-              class="group flex justify-center items-center relative"
+              class="flex flex-col w-full justify-center items-center text-center"
             >
-              <div class="flex flex-col w-full justify-center items-center text-center">
-                <span>{{ movieData.Production }}</span>
-              </div>
+              <span>{{ movieData.Production }}</span>
             </div>
           </div>
+        </div>
 
-          <div class="flex flex-col md:grid md:grid-cols-2 md:gap-3">
-            <div class="flex flex-col w-full justify-center items-center">
-              <h3 class="mb-4 text-2xl font-bold text-center mt-4 md:mb-8">
-                Runtime
-              </h3>
-            </div>
+        <div class="flex flex-col md:grid md:grid-cols-2 md:gap-3">
+          <div class="flex flex-col w-full justify-center items-center">
+            <h3 class="mb-4 text-2xl font-bold text-center mt-4 md:mb-8">
+              Runtime
+            </h3>
+          </div>
+          <div class="group flex justify-center items-center relative">
             <div
-              class="group flex justify-center items-center relative"
+              class="flex flex-col w-full justify-center items-center text-center"
             >
-              <div class="flex flex-col w-full justify-center items-center text-center">
-                <span>{{ movieData.Runtime }}</span>
-              </div>
+              <span>{{ movieData.Runtime }}</span>
             </div>
           </div>
+        </div>
 
-          <div class="flex flex-col md:grid md:grid-cols-2 md:gap-3">
-            <div class="flex flex-col w-full justify-center items-center">
-              <h3 class="mb-4 text-2xl font-bold text-center mt-4 md:mb-8">
-                Released
-              </h3>
-            </div>
+        <div class="flex flex-col md:grid md:grid-cols-2 md:gap-3">
+          <div class="flex flex-col w-full justify-center items-center">
+            <h3 class="mb-4 text-2xl font-bold text-center mt-4 md:mb-8">
+              Released
+            </h3>
+          </div>
+          <div class="group flex justify-center items-center relative">
             <div
-              class="group flex justify-center items-center relative"
+              class="flex flex-col w-full justify-center items-center text-center"
             >
-              <div class="flex flex-col w-full justify-center items-center text-center">
-                <span>{{ movieData.Released }}</span>
-              </div>
+              <span>{{ movieData.Released }}</span>
             </div>
           </div>
+        </div>
 
-          <div class="flex flex-col md:grid md:grid-cols-2 md:gap-3">
-            <div class="flex flex-col w-full justify-center items-center">
-              <h3 class="mb-4 text-2xl font-bold text-center mt-4 md:mb-8">
-                Writer
-              </h3>
-            </div>
+        <div class="flex flex-col md:grid md:grid-cols-2 md:gap-3">
+          <div class="flex flex-col w-full justify-center items-center">
+            <h3 class="mb-4 text-2xl font-bold text-center mt-4 md:mb-8">
+              Writer
+            </h3>
+          </div>
+          <div class="group flex justify-center items-center relative">
             <div
-              class="group flex justify-center items-center relative"
+              class="flex flex-col w-full justify-center items-center text-center"
             >
-              <div class="flex flex-col w-full justify-center items-center text-center">
-                <span>{{ movieData.Writer }}</span>
-              </div>
+              <span>{{ movieData.Writer }}</span>
             </div>
           </div>
+        </div>
 
-          <div class="flex flex-col md:grid md:grid-cols-2 md:gap-3">
-            <div class="flex flex-col w-full justify-center items-center">
-              <h3 class="mb-4 text-2xl font-bold text-center mt-4 md:mb-8">
-                DVD
-              </h3>
-            </div>
+        <div class="flex flex-col md:grid md:grid-cols-2 md:gap-3">
+          <div class="flex flex-col w-full justify-center items-center">
+            <h3 class="mb-4 text-2xl font-bold text-center mt-4 md:mb-8">
+              DVD
+            </h3>
+          </div>
+          <div class="group flex justify-center items-center relative">
             <div
-              class="group flex justify-center items-center relative"
+              class="flex flex-col w-full justify-center items-center text-center"
             >
-              <div class="flex flex-col w-full justify-center items-center text-center">
-                <span>{{ movieData.DVD }}</span>
-              </div>
+              <span>{{ movieData.DVD }}</span>
             </div>
           </div>
+        </div>
 
-          
-          <div class="flex flex-col md:grid md:grid-cols-2 md:gap-3">
-            <div class="flex flex-col w-full justify-center items-center">
-              <h3 class="mb-4 text-2xl font-bold text-center mt-4 md:mb-8">
-                IMDB ID
-              </h3>
-            </div>
+        <div class="flex flex-col md:grid md:grid-cols-2 md:gap-3">
+          <div class="flex flex-col w-full justify-center items-center">
+            <h3 class="mb-4 text-2xl font-bold text-center mt-4 md:mb-8">
+              IMDB ID
+            </h3>
+          </div>
+          <div class="group flex justify-center items-center relative">
             <div
-              class="group flex justify-center items-center relative"
+              class="flex flex-col w-full justify-center items-center text-center"
             >
-              <div class="flex flex-col w-full justify-center items-center text-center">
-                <span>{{ movieData.imdbID }}</span>
-              </div>
+              <span>{{ movieData.imdbID }}</span>
             </div>
           </div>
+        </div>
 
-          <div class="flex flex-col md:grid md:grid-cols-2 md:gap-3">
-            <div class="flex flex-col w-full justify-center items-center">
-              <h3 class="mb-4 text-2xl font-bold text-center mt-4 md:mb-8">
-                Metascore
-              </h3>
-            </div>
+        <div class="flex flex-col md:grid md:grid-cols-2 md:gap-3">
+          <div class="flex flex-col w-full justify-center items-center">
+            <h3 class="mb-4 text-2xl font-bold text-center mt-4 md:mb-8">
+              Metascore
+            </h3>
+          </div>
+          <div class="group flex justify-center items-center relative">
             <div
-              class="group flex justify-center items-center relative"
+              class="flex flex-col w-full justify-center items-center text-center"
             >
-              <div class="flex flex-col w-full justify-center items-center text-center">
-                <span>{{ movieData.Metascore }}</span>
-              </div>
+              <span>{{ movieData.Metascore }}</span>
             </div>
           </div>
+        </div>
 
-          <div class="flex flex-col md:grid md:grid-cols-2 md:gap-3">
-            <div class="flex flex-col w-full justify-center items-center">
-              <h3 class="mb-4 text-2xl font-bold text-center mt-4 md:mb-8">
-                Rated
-              </h3>
-            </div>
+        <div class="flex flex-col md:grid md:grid-cols-2 md:gap-3">
+          <div class="flex flex-col w-full justify-center items-center">
+            <h3 class="mb-4 text-2xl font-bold text-center mt-4 md:mb-8">
+              Rated
+            </h3>
+          </div>
+          <div class="group flex justify-center items-center relative">
             <div
-              class="group flex justify-center items-center relative"
+              class="flex flex-col w-full justify-center items-center text-center"
             >
-              <div class="flex flex-col w-full justify-center items-center text-center">
-                <span>{{ movieData.Rated }}</span>
-              </div>
+              <span>{{ movieData.Rated }}</span>
             </div>
           </div>
+        </div>
 
-          <div class="flex flex-col md:grid md:grid-cols-2 md:gap-3">
-            <div class="flex flex-col w-full justify-center items-center">
-              <h3 class="mb-4 text-2xl font-bold text-center mt-4 md:mb-8">
-                IMDB Ratings
-              </h3>
-            </div>
+        <div class="flex flex-col md:grid md:grid-cols-2 md:gap-3">
+          <div class="flex flex-col w-full justify-center items-center">
+            <h3 class="mb-4 text-2xl font-bold text-center mt-4 md:mb-8">
+              IMDB Ratings
+            </h3>
+          </div>
+          <div class="group flex justify-center items-center relative">
             <div
-              class="group flex justify-center items-center relative"
+              class="flex flex-col w-full justify-center items-center text-center"
             >
-              <div class="flex flex-col w-full justify-center items-center text-center">
-                <span>{{ movieData.imdbRating }}</span>
-              </div>
+              <span>{{ movieData.imdbRating }}</span>
             </div>
           </div>
+        </div>
 
-          <div class="flex flex-col mb-8 md:grid md:grid-cols-2 md:gap-3">
-            <div class="flex flex-col w-full justify-center items-center">
-              <h3 class="mb-4 text-2xl font-bold text-center mt-4 md:mb-8">
-                IMDB Votes
-              </h3>
-            </div>
+        <div class="flex flex-col mb-8 md:grid md:grid-cols-2 md:gap-3">
+          <div class="flex flex-col w-full justify-center items-center">
+            <h3 class="mb-4 text-2xl font-bold text-center mt-4 md:mb-8">
+              IMDB Votes
+            </h3>
+          </div>
+          <div class="group flex justify-center items-center relative">
             <div
-              class="group flex justify-center items-center relative"
+              class="flex flex-col w-full justify-center items-center text-center"
             >
-              <div class="flex flex-col w-full justify-center items-center text-center">
-                <span>{{ movieData.imdbVotes }}</span>
-              </div>
+              <span>{{ movieData.imdbVotes }}</span>
             </div>
           </div>
-
+        </div>
       </div>
     </div>
   </div>
