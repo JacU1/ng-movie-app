@@ -52,6 +52,7 @@
                 aria-current="page"
                 style="color: #f4f3ee"
                 [routerLink]="['/']"
+                (click)="onResetInputs()"
                 routerLinkActive="router-link-active"
                 data-te-nav-link-ref
                 >Movie App</a
@@ -66,7 +67,7 @@
                 (search)="onSelectSearch($event)"
                 (scrollToEnd)="onScrollSearch($event)"
               >
-                <ng-container *ngIf="searchedResults$ | async as searchedItems">
+                <ng-container *ngIf="searchedResults$ | async">
                   <ng-option
                     *ngFor="let item of searchedResults"
                     [value]="item.Title"
@@ -90,6 +91,7 @@
                 class="z-[2] h-[37px] flex px-4 items-center rounded bg-primary text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
                 type="button"
                 (click)="getMovieBySearch()"
+                [routerLink]="['movies/page/' + 1]"
                 data-te-ripple-init
                 data-te-ripple-color="light"
               >

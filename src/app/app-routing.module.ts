@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
-import { HomePageComponent } from './pages/home-page/home-page.component';
 import { MoviePageComponent } from './pages/movie-page/movie-page.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: HomePageComponent
+  {   path: '',
+        children: [
+            { path: 'movies/page/:id', component: HomePageComponent },
+            { path: '', component: HomePageComponent },] 
   },
   {
-    path: 'movie/:id',
+    path: 'movies/page/:id/movie/:id',
     component: MoviePageComponent
   },
   {

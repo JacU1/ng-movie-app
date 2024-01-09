@@ -1,54 +1,49 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MovieApiSearch } from 'src/app/shared/models/movies-api.model';
+import { MovieListItemComponent } from '../../dumb-components/movie-list-item/movie-list-item.component';
 
 export interface PagingConfig {
   currentPage: number;
   itemsPerPage: number;
   totalItems: number;
 }
+
 @Component({
   selector: 'app-movie-list',
   standalone: true,
-  imports: [CommonModule, NgxPaginationModule, RouterModule],
+  imports: [CommonModule, NgxPaginationModule, MovieListItemComponent],
   templateUrl: './movie-list.component.html',
   styleUrl: './movie-list.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MovieListComponent implements OnInit {
   @Input() set movieListData$(value: MovieApiSearch | null) {
     this.movieListData = value!;
 
     this.pagingConfig = {
-      itemsPerPage: this.itemsPerPage,
-      currentPage: this.currentPage,
-      totalItems: parseInt(this.movieListData.totalResults)
-    };
+      currentPage: localStorage.getItem('currentPage') ? parseInt(localStorage.getItem('currentPage')!) : 1,
+      totalItems: parseInt(value!.totalResults),
+      itemsPerPage: 10
+    }
   };
+  public pagingConfig!: PagingConfig;
 
   @Output() onPaginationChange = new EventEmitter<number>();
 
   movieListData: MovieApiSearch = {} as MovieApiSearch;
-  currentPage: number  = 1;
-  itemsPerPage: number = 10;
-  totalItems: number = 0;
-  pagingConfig: PagingConfig = {} as PagingConfig;
 
-  constructor() {}
+  constructor(private readonly _router: Router) {}
 
   ngOnInit(): void {
-    this.pagingConfig = {
-      itemsPerPage: this.itemsPerPage,
-      currentPage: this.currentPage,
-      totalItems: parseInt(this.movieListData.totalResults)
-    };
   }
 
-  naPageChange(event:any) {
-    this.pagingConfig.currentPage = event;
-    this.onPaginationChange.emit(this.pagingConfig.currentPage);
+  onPageChange(event:any) {
+    localStorage.setItem('currentPage', event);
+    this._router.navigate(['movies/page/' + event]);
+    this.onPaginationChange.emit(event);
     window.scrollTo(0,0);
   }
 }
