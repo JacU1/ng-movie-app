@@ -38,109 +38,56 @@
     >
       <!-- Left links -->
       <ul
-        class="list-style-none mr-auto flex flex-col items-center pl-0 lg:mt-1 md:items-baseline lg:flex-row"
+        class="list-style-none mr-auto flex flex-col items-start pl-0 w-full justify-between lg:mt-[0.85rem] md:items-center lg:flex-row"
         data-te-navbar-nav-ref
       >
-        <!-- Home link -->
-        <li class="my-4 pl-2 lg:my-0 lg:pl-2 lg:pr-1" data-te-nav-item-ref>
-          <a
-            class="text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
-            aria-current="page"
-            style="color: #f4f3ee"
-            [routerLink]="['/']"
-            routerLinkActive="router-link-active"
-            data-te-nav-link-ref
-            >Movie App</a
-          >
-        </li>
-        <li class="my-4 pl-2 lg:my-0 lg:pl-2 lg:pr-1" data-te-nav-item-ref>
-          <div class="mb-3">
-            <div
-              class="relative mb-4 flex w-full flex-wrap items-stretch"
-            >
+        <li
+          class="my-4 pl-2 w-full lg:my-0 lg:pl-2 lg:pr-1"
+          data-te-nav-item-ref
+        >
+          <div class="mb-3 flex flex-col items-center lg:flex-row">
+            <div class="mb-4 lg:mb-0">
+              <a
+                class="text-neutral-500 mr-4 hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+                aria-current="page"
+                style="color: #f4f3ee"
+                [routerLink]="['/']"
+                routerLinkActive="router-link-active"
+                data-te-nav-link-ref
+                >Movie App</a
+              >
+            </div>
+
+            <div class="relative flex mr-4">
               <ng-select
                 class="custom"
                 [(ngModel)]="selectedMovie"
+                [virtualScroll]="true"
                 (search)="onSelectSearch($event)"
+                (scrollToEnd)="onScrollSearch($event)"
               >
                 <ng-container *ngIf="searchedResults$ | async as searchedItems">
                   <ng-option
-                    *ngFor="let item of searchedItems.Search"
+                    *ngFor="let item of searchedResults"
                     [value]="item.Title"
                     >{{ item.Title }}</ng-option
                   >
                 </ng-container>
               </ng-select>
               <button
-                  class="relative z-[2] flex items-center rounded-r bg-primary px-4 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
-                  type="button"
-                  id="button-addon1"
-                  (click)="clearInput('year')"
-                  data-te-ripple-init
-                  data-te-ripple-color="light"
-                >
-                  X
-                </button>
+                class="relative z-[2] flex items-center rounded-r bg-primary px-4 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
+                type="button"
+                id="button-addon1"
+                (click)="clearInput('selectedMovie')"
+                data-te-ripple-init
+                data-te-ripple-color="light"
+              >
+                X
+              </button>
             </div>
-          </div>
-        </li>
-
-        <ng-container [formGroup]="searchFormGroup">
-          <li class="my-4 pl-2 lg:my-0 lg:pl-2 lg:pr-1 lg:w-[20%]" data-te-nav-item-ref>
-            <div class="mb-3">
-              <div class="relative mb-4 flex w-full flex-wrap items-stretch">
-                <input
-                  type="text"
-                  class="relative m-0 -mr-0.5 block min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] md:w-[70%] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
-                  placeholder="eg. 2007"
-                  style="color: #f4f3ee"
-                  formControlName="year"
-                />
-                <button
-                  class="relative z-[2] flex items-center rounded-r bg-primary px-4 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
-                  type="button"
-                  id="button-addon1"
-                  (click)="clearInput('year')"
-                  data-te-ripple-init
-                  data-te-ripple-color="light"
-                >
-                  X
-                </button>
-              </div>
-            </div>
-          </li>
-
-          <li class="my-4 pl-2 lg:my-0 lg:pl-2 lg:pr-1 lg:w-[20%]" data-te-nav-item-ref>
-            <div class="mb-3">
-              <div class="relative flex">
-                <select
-                  data-te-select-init
-                  data-te-select-placeholder="Movie Type"
-                  formControlName="type"
-                >
-                  <option *ngFor="let item of movieTypes">
-                    <p data-te-dropdown-item-ref>{{ item }}</p>
-                  </option>
-                </select>
-                <button
-                  class="relative z-[2] flex px-4 items-center rounded-r bg-primary text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
-                  type="button"
-                  (click)="clearInput('type')"
-                  data-te-ripple-init
-                  data-te-ripple-color="light"
-                >
-                  X
-                </button>
-              </div>
-            </div>
-          </li>
-        </ng-container>
-
-        <li class="my-4 pl-2 lg:my-0 lg:pl-2 lg:pr-1" data-te-nav-item-ref>
-          <div class="mb-3">
-            <div class="relative flex">
+            <div class="mt-4 lg:mt-0">
               <button
-                class="z-[2] h-[32px] flex px-4 items-center rounded bg-primary text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
+                class="z-[2] h-[37px] flex px-4 items-center rounded bg-primary text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
                 type="button"
                 (click)="getMovieBySearch()"
                 data-te-ripple-init
@@ -163,9 +110,60 @@
             </div>
           </div>
         </li>
+
+        <li class="my-4 pl-2 w-full flex justify-center lg:my-0 lg:pl-2 lg:pr-1 lg:justify-end" data-te-nav-item-ref>
+            <div class="relative flex flex-col md:flex-row">
+              <ng-container [formGroup]="searchFormGroup">
+                <div class="mb-3 flex md:mr-4">
+                  <div class="relative flex w-[190px]">
+                    <input
+                      type="text"
+                      class="relative m-0 -mr-0.5 block min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] md:w-[70%] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
+                      placeholder="eg. 2007"
+                      style="color: #f4f3ee"
+                      formControlName="year"
+                    />
+                    <button
+                      class="relative z-[2] flex items-center rounded-r bg-primary px-4 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
+                      type="button"
+                      id="button-addon1"
+                      (click)="clearInput('year')"
+                      data-te-ripple-init
+                      data-te-ripple-color="light"
+                    >
+                      X
+                    </button>
+                  </div>
+                </div>
+
+                <div class="mb-3 flex md:mr-4">
+                  <div class="relative flex w-[190px]">
+                    <select
+                      data-te-select-init
+                      data-te-select-placeholder="Movie Type"
+                      formControlName="type"
+                    >
+                      <option *ngFor="let item of movieTypes">
+                        <p data-te-dropdown-item-ref>{{ item }}</p>
+                      </option>
+                    </select>
+                    <button
+                      class="relative z-[2] flex px-4 items-center rounded-r bg-primary text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
+                      type="button"
+                      (click)="clearInput('type')"
+                      data-te-ripple-init
+                      data-te-ripple-color="light"
+                    >
+                      X
+                    </button>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+        </li>
       </ul>
 
-      <div class="flex items-center">
+      <div class="flex items-center justify-center">
         <a
           type="button"
           data-te-ripple-init

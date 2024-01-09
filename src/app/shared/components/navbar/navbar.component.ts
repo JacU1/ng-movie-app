@@ -1,3 +1,4 @@
+import { SearchItem } from './../../models/movies-api.model';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
@@ -25,27 +26,33 @@ import { NgSelectModule } from '@ng-select/ng-select';
 export class NavbarComponent implements OnInit, OnDestroy {
 
   public searchFormGroup: FormGroup;
-  public movieTypes: string[] = ['movie', 'series', 'episode'];
+  public movieTypes: string[] = ['Movie', 'Series', 'Episode'];
   public searchedResults$!: Observable<MovieApiSearch>;
   public selectedMovie!: string;
   public searchValue$!: Subject<string>;
+  public pageNumber!: number;
+  public searchedTerm!: string;
+  public searchedResults!: SearchItem[];
 
   private sub!: Subscription;
 
-  constructor(private readonly _fb: FormBuilder ,private readonly _moviesService: MoviesDataService, private readonly _toastService: ToastService){
+  constructor(private readonly _fb: FormBuilder, private readonly _moviesService: MoviesDataService, private readonly _toastService: ToastService){
     this.searchFormGroup = this._fb.group({
       type: new FormControl<string>(''),
       year: new FormControl<number | null>(null , Validators.max(2024))
     });
     this.sub = new Subscription();
     this.searchValue$ = new Subject<string>();
+    this.pageNumber = 1;
+    this.searchedTerm = '';
+    this.searchedResults = [];
   }
 
   ngOnInit(): void {
     initTE({ Collapse, Ripple, Select });
 
     this.searchedResults$ = this.searchValue$.pipe(switchMap(change => {
-      return this._moviesService.getMovieBySearch(change, 1, this.searchFormGroup.get('type')!.value, this.searchFormGroup.get('year')!.value).pipe(map(res => {
+      return this._moviesService.getMovieBySearch(change, this.pageNumber, this.searchFormGroup.get('type')!.value, this.searchFormGroup.get('year')!.value).pipe(map(res => {
         if(res.Response !== 'False') {
           const firstValue = {
             Title: change,
@@ -55,6 +62,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
             Poster: ''
           };
           res.Search[0] = firstValue;
+          res.Search.forEach(item => {
+            this.searchedResults.push(item);
+          })
           return res;
         } 
         return res;
@@ -78,8 +88,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   clearInput(input: string): void {
     switch (input) {
-      case 'search':
-        this.searchFormGroup.get('searchInput')!.reset(); 
+      case 'selectedMovie':
+        this.selectedMovie = '';
+        this.searchedResults = []; 
         break;
       case 'type':
         this.searchFormGroup.get('type')!.reset();
@@ -92,6 +103,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   onSelectSearch(e: any): void {
+    this.searchedTerm = e.term;
     this.searchValue$.next(e.term);
+  }
+
+  onScrollSearch(e: any): void {
+    this.pageNumber = this.pageNumber + 1;
+    this.searchValue$.next(this.searchedTerm);
   }
 }

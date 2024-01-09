@@ -1,6 +1,10 @@
 ::ng-deep.ng-select.custom {
-    width: 240px;
+    width: 200px;
     background-color: transparent;
+
+    @media screen and (min-width: 650px) {
+        width: 240px;
+    }
 }
 
 ::ng-deep.ng-select .ng-select-container {
@@ -8,5 +12,13 @@
 }
 
 ::ng-deep .ng-select .ng-value {
+    color: white;
+}
+
+::ng-deep .ng-clear-wrapper {
+    display: none !important;
+}
+
+::ng-deep .peer {
     color: white;
 }
