@@ -26,7 +26,7 @@ export class MovieListComponent implements OnInit {
     this.pagingConfig = {
       currentPage: localStorage.getItem('currentPage') ? parseInt(localStorage.getItem('currentPage')!) : 1,
       totalItems: parseInt(value!.totalResults),
-      itemsPerPage: 10
+      itemsPerPage: 9
     }
   };
   public pagingConfig: PagingConfig = {} as PagingConfig;

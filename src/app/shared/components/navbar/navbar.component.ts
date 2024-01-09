@@ -87,6 +87,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   getMovieBySearch(): void {
     if(this.searchFormGroup.valid && this.selectedMovie !== null && this.selectedMovie !== undefined) {
       this.sub.add(this._moviesService.getMovieBySearch(this.selectedMovie, 1, this.searchFormGroup.get('type')!.value, this.searchFormGroup.get('year')!.value).subscribe(res => {
+        res.Search.slice(0,9);
         res.Response === 'False' ? this._moviesService.movieDataList$.next(null) : this._moviesService.movieDataList$.next(res); 
       }));
       localStorage.setItem('lastSelectedMovie', this.selectedMovie);
