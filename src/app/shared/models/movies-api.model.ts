@@ -25,16 +25,16 @@ export interface MovieApiResponse {
     Response: string
 }
 
+export interface SearchItem {
+    Title: string,
+    Year: string,
+    imdbID: string,
+    Type: string,
+    Poster: string  
+}
+
 export interface MovieApiSearch {
-    Search: [
-            {
-                Title: string,
-                Year: string,
-                imdbID: string,
-                Type: string,
-                Poster: string
-            }
-        ],
+    Search: SearchItem[],
         totalResults: string,
         Response: string,
         Error?: string

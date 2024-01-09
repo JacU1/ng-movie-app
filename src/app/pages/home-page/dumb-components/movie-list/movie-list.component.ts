@@ -20,6 +20,12 @@ export interface PagingConfig {
 export class MovieListComponent implements OnInit {
   @Input() set movieListData$(value: MovieApiSearch | null) {
     this.movieListData = value!;
+
+    this.pagingConfig = {
+      itemsPerPage: this.itemsPerPage,
+      currentPage: this.currentPage,
+      totalItems: parseInt(this.movieListData.totalResults)
+    };
   };
 
   @Output() onPaginationChange = new EventEmitter<number>();
