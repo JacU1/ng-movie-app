@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MovieListItemComponent } from './movie-list-item.component';
+import { ActivatedRoute } from '@angular/router';
 
 describe('MovieListItemComponent', () => {
   let component: MovieListItemComponent;
@@ -8,7 +9,10 @@ describe('MovieListItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MovieListItemComponent]
+      imports: [MovieListItemComponent],
+      providers: [
+        { provide: ActivatedRoute, useValue: {} },
+      ],
     })
     .compileComponents();
     

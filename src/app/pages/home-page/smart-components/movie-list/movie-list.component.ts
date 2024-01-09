@@ -29,7 +29,7 @@ export class MovieListComponent implements OnInit {
       itemsPerPage: 10
     }
   };
-  public pagingConfig!: PagingConfig;
+  public pagingConfig: PagingConfig = {} as PagingConfig;
 
   @Output() onPaginationChange = new EventEmitter<number>();
 

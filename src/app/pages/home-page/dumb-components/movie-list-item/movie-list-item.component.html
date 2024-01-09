@@ -1,4 +1,4 @@
-<article class="flex items-start space-x-6 p-6 bg-[#101c3a] rounded-md" [routerLink]="['movie/' + movie.imdbID]" routerLinkActive="router-link-active">
+<article *ngIf="movie" class="flex items-start space-x-6 p-6 bg-[#101c3a] rounded-md" [routerLink]="['movie/' + movie.imdbID]" routerLinkActive="router-link-active">
     <img [src]="movie.Poster" alt="" width="60" height="88" class="flex-none rounded-md bg-slate-100" />
     <div class="min-w-0 relative flex-auto">
       <h2 class="font-semibold text-white-900 truncate pr-20">{{ movie.Title }}</h2>
@@ -21,7 +21,7 @@
             <svg width="2" height="2" fill="currentColor" class="mx-2 text-slate-300" aria-hidden="true">
               <circle cx="1" cy="1" r="1" />
             </svg>
-            {{ movie.Type.charAt(0).toUpperCase() + movie.Type.slice(1) }}
+            {{ movie.Type!.charAt(0).toUpperCase() + movie.Type.slice(1) }}
           </dd>
         </div>
       </dl>
