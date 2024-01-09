@@ -14,7 +14,6 @@ import { environment } from 'src/environments/environment';
 import { NgxsReduxDevtoolsPluginModule } from "@ngxs/devtools-plugin";
 import { ViewedMoviesBoxComponent } from './shared/components/viewed-movies-box/viewed-movies-box.component';
 import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
-import { LoadingSpinnerInterceptor } from './shared/interceptors/loading-spinner.interceptor';
 
 @NgModule({
   declarations: [
@@ -45,11 +44,11 @@ import { LoadingSpinnerInterceptor } from './shared/interceptors/loading-spinner
       ),
       NgxsReduxDevtoolsPluginModule.forRoot()
     ),
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: LoadingSpinnerInterceptor,
-      multi: true,
-   },
+  //   {
+  //     provide: HTTP_INTERCEPTORS,
+  //     useClass: LoadingSpinnerInterceptor,
+  //     multi: true,
+  //  },
   ],
   bootstrap: [AppComponent]
 })
