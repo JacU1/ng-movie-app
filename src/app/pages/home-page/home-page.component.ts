@@ -7,12 +7,14 @@ import { MovieApiSearch } from 'src/app/shared/models/movies-api.model';
 import { Select } from '@ngxs/store';
 import { MoviesSelector } from 'src/app/shared/state/selectors/movies.selectors';
 import { MovieStateItem } from 'src/app/shared/state';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { BANER_DATA, BannerItem } from 'src/app/shared/models/banner-data.model';
+import { MovieListItemComponent } from './dumb-components/movie-list-item/movie-list-item.component';
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [MovieListComponent, CommonModule],
+  imports: [MovieListComponent, CommonModule, MovieListItemComponent, RouterModule],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss'
 })
@@ -21,6 +23,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
   items$!: Observable<MovieStateItem[]>;
 
   public movieListSubject$!: Observable<MovieApiSearch | null>;
+  public bannerData: BannerItem[] = BANER_DATA;
   private sub: Subscription = new Subscription();
   
   constructor(private readonly _movieService: MoviesDataService, private readonly _activatedRoute: ActivatedRoute){

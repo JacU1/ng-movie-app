@@ -1,5 +1,5 @@
 <nav
-  class="relative flex w-full flex-wrap items-center justify-between bg-[#030a1b] py-2 text-neutral-500 shadow-lg hover:text-neutral-700 focus:text-neutral-700 dark:bg-neutral-600 lg:py-4"
+  class="relative flex w-full flex-wrap items-center justify-between bg-[#101c3a] py-2 text-neutral-500 shadow-lg hover:text-neutral-700 focus:text-neutral-700 dark:bg-neutral-600 lg:py-4"
   data-te-navbar-ref
 >
   <div class="flex w-full flex-wrap items-center justify-between px-3">
@@ -64,6 +64,7 @@
                 class="custom"
                 [(ngModel)]="selectedMovie"
                 [virtualScroll]="true"
+                placeholder="Eg. Matrix"
                 (search)="onSelectSearch($event)"
                 (scrollToEnd)="onScrollSearch($event)"
               >
@@ -165,7 +166,7 @@
         </li>
       </ul>
 
-      <div class="flex items-center justify-center">
+      <div class="flex items-center justify-center mb-4 lg:mb-0">
         <a
           type="button"
           data-te-ripple-init
