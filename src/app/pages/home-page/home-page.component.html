@@ -1,13 +1,84 @@
 <div class="sm:container sm:mx-auto px-5">
-    <div *ngIf="(movieListSubject$ | async) !== null; else placeholder" class="flex justify-center">
-        <app-movie-list class="w-full" 
-        [movieListData$]="(movieListSubject$ | async)" 
-        (onPaginationChange)="onPageChage($event)"></app-movie-list>
-    </div>
-    <ng-template #placeholder>
-        <div class="w-full h-full flex flex-col justify-center items-center mt-12">
-            <h1 class="mb-6 text-5xl font-bold text-center">Enter the movie you are looking for</h1>
-            <h3 class="mb-8 text-3xl font-bold text-center">After entering the phrase, a list of search results will appear</h3>
+  <div
+    *ngIf="(movieListSubject$ | async) !== null; else placeholder"
+    class="flex justify-center"
+  >
+    <app-movie-list
+      class="w-full"
+      [movieListData$]="movieListSubject$ | async"
+      (onPaginationChange)="onPageChage($event)"
+    ></app-movie-list>
+  </div>
+  <ng-template #placeholder>
+    <h3 class="mt-8 text-3xl font-bold text-center">OSCARS 2023</h3>
+    <div
+      class="relative custom-grid lg:grid lg:grid-cols-3 lg:gap-3 lg:overflow-x-auto md:flex mt-12"
+    >
+      <div class="w-[210px] flex justify-center mr-2 md:w-[350px] lg:w-full">
+        <div
+          class="block rounded-lg cursor-pointer mb-8 transition duration-300 ease-in-out hover:shadow-xl hover:shadow-white/30"
+          [routerLink]="['movies/page/1/movie/' + bannerData[0].imdbID]"
+          routerLinkActive="router-link-active"
+        >
+          <img class="rounded-lg" [src]="bannerData[0].Poster" alt="" />
+          <div class="p-4">
+            <h5 class="mb-2 text-xl font-medium leading-tight text-white-800">
+              Best Picture
+            </h5>
+            <p class="mb-4 text-base text-white-600">
+              Everything Everywhere All At Once
+            </p>
+          </div>
         </div>
-    </ng-template>
+      </div>
+      <div class="w-[210px] flex justify-center mr-2 md:w-[350px] lg:w-full">
+        <div
+          class="block rounded-lg mb-8 cursor-pointer transition duration-300 ease-in-out hover:shadow-xl hover:shadow-white/30"
+          [routerLink]="['movies/page/1/movie/' + bannerData[1].imdbID]"
+          routerLinkActive="router-link-active"
+        >
+          <img class="rounded-lg" [src]="bannerData[1].Poster" alt="" />
+          <div class="p-4">
+            <h5 class="mb-2 text-xl font-medium leading-tight text-white-800">
+              Best Costumes
+            </h5>
+            <p class="mb-4 text-base text-white-600">
+              Black Panther - Wakanda Forever
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="w-[210px] flex justify-center mr-2 md:w-[350px] lg:w-full">
+        <div
+          class="block rounded-lg mb-8 cursor-pointer transition duration-300 ease-in-out hover:shadow-xl hover:shadow-white/30"
+          [routerLink]="['movies/page/1/movie/' + bannerData[2].imdbID]"
+          routerLinkActive="router-link-active"
+        >
+          <img class="rounded-lg" [src]="bannerData[2].Poster" alt="" />
+          <div class="p-4">
+            <h5 class="mb-2 text-xl font-medium leading-tight text-white-800">
+              Best Effects
+            </h5>
+            <p class="mb-4 text-base text-white-600">
+              Avatar - The Way of Water
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="w-full h-full flex flex-col justify-center items-center mt-12">
+      <h1 class="mb-6 text-5xl font-bold text-center">
+        Enter the movie you are looking for
+      </h1>
+      <h3 class="mb-8 text-3xl font-bold text-center">
+        After entering the phrase, a list of search results will appear like
+        this
+      </h3>
+      <div class="flex flex-col mt-4 mb-20 lg:flex-row">
+        <app-movie-list-item [movie]="bannerData[0]"></app-movie-list-item>
+        <app-movie-list-item [movie]="bannerData[1]"></app-movie-list-item>
+        <app-movie-list-item [movie]="bannerData[2]"></app-movie-list-item>
+      </div>
+    </div>
+  </ng-template>
 </div>
