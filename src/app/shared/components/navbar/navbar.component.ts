@@ -48,6 +48,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.searchedResults = [];
   }
 
+  get getCurrentPage() : number {
+    if(localStorage.getItem('currentPage')) {
+      return parseInt(localStorage.getItem('currentPage')!);
+    } else {
+      return 1;
+    }
+  }
+
   ngOnInit(): void {
     initTE({ Collapse, Ripple, Select });
 
@@ -79,18 +87,22 @@ export class NavbarComponent implements OnInit, OnDestroy {
   getMovieBySearch(): void {
     if(this.searchFormGroup.valid && this.selectedMovie !== null && this.selectedMovie !== undefined) {
       this.sub.add(this._moviesService.getMovieBySearch(this.selectedMovie, 1, this.searchFormGroup.get('type')!.value, this.searchFormGroup.get('year')!.value).subscribe(res => {
+        res.Search.slice(0,9);
         res.Response === 'False' ? this._moviesService.movieDataList$.next(null) : this._moviesService.movieDataList$.next(res); 
       }));
+      localStorage.setItem('lastSelectedMovie', this.selectedMovie);
+      localStorage.setItem('currentPage', '1');
     }else {
       this._toastService.showToast(ToastTypes.DANGER, "Wrong input or empty input");
     }
+    this.searchedResults = [];
   }
 
   clearInput(input: string): void {
     switch (input) {
       case 'selectedMovie':
         this.selectedMovie = '';
-        this.searchedResults = []; 
+        this.searchedResults = [];
         break;
       case 'type':
         this.searchFormGroup.get('type')!.reset();
@@ -110,5 +122,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
   onScrollSearch(e: any): void {
     this.pageNumber = this.pageNumber + 1;
     this.searchValue$.next(this.searchedTerm);
+  }
+
+  onResetInputs(): void {
+    this.clearInput('selectedMovie');
+    this.searchFormGroup.reset();
+    localStorage.removeItem('currentPage');
+    localStorage.removeItem('lastSelectedMovie');
   }
 }

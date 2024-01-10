@@ -1,0 +1,30 @@
+<article *ngIf="movie" class="flex items-start m-2 space-x-6 p-6 bg-[#101c3a] rounded-md cursor-pointer transition duration-300 ease-in-out hover:shadow-xl hover:shadow-white/30" [routerLink]="['movie/' + movie.imdbID]" routerLinkActive="router-link-active">
+  <div class="min-h-[88px] min-w-[60px]">
+    <ng-container *ngIf="movie.Poster !== 'N/A'; else placeholderImg">
+      <img [src]="movie.Poster" alt="" width="60" height="88" class="flex-none rounded-md bg-slate-100" />
+    </ng-container>
+    <ng-template #placeholderImg>
+      <img src="assets/movie-clap-transparent.png" alt="" width="60" height="88" class="flex-none rounded-md bg-slate-100" />
+    </ng-template>
+  </div>
+    <div class="min-w-0 relative flex-auto">
+      <h2 class="font-semibold text-white-900">{{ movie.Title }}</h2>
+      <dl class="mt-2 flex flex-wrap text-sm leading-6 font-medium">
+        <div class="absolute top-0 right-0 flex items-center space-x-1">
+        </div>
+        <div>
+          <dt class="sr-only">Year</dt>
+          <dd>{{ movie.Year }}</dd>
+        </div>
+        <div>
+          <dt class="sr-only">Genre</dt>
+          <dd class="flex items-center">
+            <svg width="2" height="2" fill="currentColor" class="mx-2 text-slate-300" aria-hidden="true">
+              <circle cx="1" cy="1" r="1" />
+            </svg>
+            {{ movie.Type!.charAt(0).toUpperCase() + movie.Type.slice(1) }}
+          </dd>
+        </div>
+      </dl>
+    </div>
+</article>
