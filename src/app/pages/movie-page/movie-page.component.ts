@@ -50,6 +50,10 @@ export class MoviePageComponent implements OnInit, OnDestroy {
   }
 
   returnToList(): void {
-    this._router.navigate(['/movies/page/' + this.getCurrentPage]);
+    if(localStorage.getItem('currentPage')){
+      this._router.navigate(['/movies/page/' + this.getCurrentPage]);  
+    }else {
+      this._router.navigate(['/']);
+    }
   }
 }
