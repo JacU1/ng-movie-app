@@ -33,7 +33,7 @@ export class MoviesState {
         
             ctx.setState({
             ...state,
-            items: [...state.items, newItem],
+            items: [...state.items, newItem].reverse(),
         });
     }
 }
