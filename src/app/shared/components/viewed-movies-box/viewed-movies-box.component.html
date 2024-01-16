@@ -1,6 +1,6 @@
 <ng-container *ngIf="(boxContent$ | async)!.length !== 0 && showBox === true">
   <div
-    class="fixed bottom-[25px] right-[0px] bg-[#030a1b] h-[150px] rounded-lg overflow-auto w-full lg:w-[300px] lg:right-[25px]"
+    class="fixed bottom-[25px] right-[0px] bg-[#030a1b] h-[150px] rounded-lg overflow-auto w-full md:w-[300px] md:right-[25px]"
   >
   <div class="flex justify-between">
     <span class="p-4">Last viewed</span>
@@ -34,8 +34,7 @@
       *ngFor="let item of (boxContent$ | async)! as boxContent"
       class="flex flex-col px-6 py-4"
     >
-      <h3>Title: {{ item.title }}</h3>
-      <span>Id: {{ item.id }}</span>
+      <span>{{ item.title }}</span>
     </div>
   </div>
 </ng-container>
