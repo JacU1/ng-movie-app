@@ -1,7 +1,7 @@
 <ng-container *ngIf="movieData$ | async as movieData">
   <div class="sm:container px-4 sm:mx-auto lg:px-36">
     <button
-      class="relative z-[2] flex items-center rounded-md bg-primary p-[0.8rem] mt-4 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
+      class="relative z-[2] flex items-center rounded-md bg-primary p-[0.6rem] mt-4 mb-4 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
       type="button"
       data-te-ripple-init
       data-te-ripple-color="light"
@@ -15,63 +15,66 @@
       <span>Go Back to List</span>
     </button>
     <div class="flex flex-col justify-center items-center">
-      <img
-        *ngIf="movieData.Poster !== 'N/A'"
-        class="w-full h-full sm:w-[300px] sm:h-[450px] object-contain"
-        [src]="movieData.Poster"
-      />
-      <img
-        *ngIf="movieData.Poster === 'N/A'"
-        class="w-full h-full sm:w-[300px] sm:h-[450px] object-contain"
-        src="assets/movie-clap-transparent.png"
-      />
-      <div class="title-content mt-6">
-        <h3 class="mb-8 text-3xl font-bold text-center">
-          {{ movieData.Title }}
-        </h3>
-        <h3 class="mb-8 text-xl font-bold text-center mt-2">
-          {{ movieData.Year }}
-        </h3>
-        <h3 class="mb-8 text-2xl font-bold text-center mt-1">
-          {{ movieData.Director }}
-        </h3>
-        <h3 class="mb-4 text-2xl font-bold text-center mt-4 md:mb-8">
-          {{ movieData.Country }}
-        </h3>
-      </div>
-      <div class="text-content">
-        <span class="text-center">{{ movieData.Plot }}</span>
 
-        <div class="flex flex-col md:grid md:grid-cols-2 md:gap-3 mt-12">
-          <div class="flex flex-col w-full justify-center items-center">
-            <h3 class="mb-4 text-2xl font-bold text-center mt-4 md:mb-8">
-              Movie genre
-            </h3>
-          </div>
-          <div class="group flex justify-center items-center relative">
-            <div
-              class="flex flex-col w-full justify-center items-center text-center"
-            >
-              <span>{{ movieData.Genre }}</span>
+      <div class="flex flex-col items-start w-full m-2 space-x-6 p-6 bg-[#101c3a] rounded-md md:flex-row">
+          <ng-container *ngIf="movieData.Poster !== 'N/A'; else placeholderImg">
+            <img [src]="movieData.Poster" alt="" class="flex-none rounded-md bg-slate-100" />
+          </ng-container>
+          <ng-template #placeholderImg>
+            <img src="assets/movie-clap-transparent.png" alt="" class="flex-none rounded-md bg-slate-100" />
+          </ng-template>
+          <div class="m-4 min-w-0 relative flex-auto md:m-0">
+            <h2 class="font-semibold text-white-900">{{ movieData.Title }}</h2>
+            <dl class="mt-2 flex flex-wrap text-sm leading-6 font-medium">
+              <div class="absolute top-0 right-0 flex items-center space-x-1">
+              </div>
+              <div>
+                <dd>{{ movieData.Year }}</dd>
+              </div>
+              <div>
+                <dd class="flex items-center">
+                  <svg width="2" height="2" fill="currentColor" class="mx-2 text-slate-300" aria-hidden="true">
+                    <circle cx="1" cy="1" r="1" />
+                  </svg>
+                  {{ movieData.Type!.charAt(0).toUpperCase() + movieData.Type.slice(1) }}
+                </dd>
+              </div>
+            </dl>
+            <div class="flex flex-col mt-6">
+              <h2 class="mb-6">{{ movieData.Plot }}</h2>
+              <div class="flex items-center mt-4">
+                <h2 class="font-semibold text-white-900">Director</h2>
+                <svg width="2" height="2" fill="currentColor" class="mx-2 text-slate-300" aria-hidden="true">
+                  <circle cx="1" cy="1" r="1" />
+                </svg>
+                <h2 class="text-white-900">{{ movieData.Director}}</h2>
+              </div>
+              <div class="flex items-center mt-4">
+                <h2 class="font-semibold text-white-900">Country</h2>
+                <svg width="2" height="2" fill="currentColor" class="mx-2 text-slate-300" aria-hidden="true">
+                  <circle cx="1" cy="1" r="1" />
+                </svg>
+                <h2 class="text-white-900">{{ movieData.Country}}</h2>
+              </div>
+              <div class="flex items-center mt-4">
+                <h2 class="font-semibold text-white-900">Actors</h2>
+                <svg width="2" height="2" fill="currentColor" class="mx-2 text-slate-300" aria-hidden="true">
+                  <circle cx="1" cy="1" r="1" />
+                </svg>
+                <h2 class="text-white-900">{{ movieData.Actors }}</h2>
+              </div>
+              <div class="flex items-center mt-4">
+                <h2 class="font-semibold text-white-900">Genre</h2>
+                <svg width="2" height="2" fill="currentColor" class="mx-2 text-slate-300" aria-hidden="true">
+                  <circle cx="1" cy="1" r="1" />
+                </svg>
+                <h2 class="text-white-900">{{ movieData.Genre}}</h2>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="flex flex-col md:grid md:grid-cols-2 md:gap-3">
-          <div class="flex flex-col w-full justify-center items-center">
-            <h3 class="mb-4 text-2xl font-bold text-center mt-4 md:mb-8">
-              Actors
-            </h3>
-          </div>
-          <div class="group flex justify-center items-center relative">
-            <div
-              class="flex flex-col w-full justify-center items-center text-center"
-            >
-              <span>{{ movieData.Actors }}</span>
-            </div>
-          </div>
-        </div>
-
+      <div class="text-content text-center">
         <div class="flex flex-col md:grid md:grid-cols-2 md:gap-3">
           <div class="flex flex-col w-full justify-center items-center">
             <h3 class="mb-4 text-2xl font-bold text-center mt-4 md:mb-8">

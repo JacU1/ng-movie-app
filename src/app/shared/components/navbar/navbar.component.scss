@@ -2,8 +2,17 @@
     width: 200px;
     background-color: transparent;
 
-    @media screen and (min-width: 650px) {
+
+    @media screen and (min-width: 1025px) and (max-width: 1439px) {
         width: 240px;
+    }
+
+    @media screen and (min-width: 1440px) and (max-width: 1919px) {
+        width: 283px;
+    }
+
+    @media screen and (min-width:1920px) {
+        width: 420px;
     }
 }
 
